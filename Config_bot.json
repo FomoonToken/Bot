@@ -2,5 +2,8 @@
     "private_key": "XXXXXXX",			
     "adresse_wallet": "XXXXXXX",	
     "adresse_visee": "0x592dc91be8516b948aa55f2f40704f59de7c120d",	
-	"somme_investie": 0.01
+	"somme_investie": 0.01,
+	"adresse_blockchain": "https://bsc-dataseed1.binance.org:443",
+	"adresse_coin_blockchain": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c"
+	
 }

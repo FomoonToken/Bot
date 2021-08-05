@@ -15,12 +15,13 @@ adresse_privee  =donnees_config['private_key']
 adresse_wallet = donnees_config['adresse_wallet']
 adresse_contrat_vise = donnees_config['adresse_visee']
 somme_a_investir = donnees_config['somme_investie']
-
+adresse_blockchain = donnees_config['adresse_blockchain']
+adresse_coin_blockchain =  donnees_config['adresse_coin_blockchain']
 
 # BNB variables
-w3 = Web3(Web3.HTTPProvider('https://bsc-dataseed1.binance.org:443'))
-adressBNB = w3.toChecksumAddress('0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c')
-adresseBUSD = w3.toChecksumAddress('0xe9e7cea3dedca5984780bafc599bd69add087d56')
+w3 = Web3(Web3.HTTPProvider(adresse_blockchain))
+adressBNB = w3.toChecksumAddress(adresse_coin_blockchain)
+
 contract_abi = json.loads('[{"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"token0","type":"address"},{"indexed":true,"internalType":"address","name":"token1","type":"address"},{"indexed":false,"internalType":"address","name":"pair","type":"address"},{"indexed":false,"internalType":"uint256","name":"","type":"uint256"}],"name":"PairCreated","type":"event"},{"constant":true,"inputs":[],"name":"INIT_CODE_PAIR_HASH","outputs":[{"internalType":"bytes32","name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"allPairs","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"allPairsLength","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"tokenA","type":"address"},{"internalType":"address","name":"tokenB","type":"address"}],"name":"createPair","outputs":[{"internalType":"address","name":"pair","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"feeTo","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"feeToSetter","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"getPair","outputs":[{"internalType":"address","name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeTo","type":"address"}],"name":"setFeeTo","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"internalType":"address","name":"_feeToSetter","type":"address"}],"name":"setFeeToSetter","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"}]')
 myContractFactory = w3.eth.contract(address="0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73", abi=contract_abi)
 panRouterContractAddress = '0x10ED43C718714eb63d5aA57B78B54704E256024E'
@@ -84,13 +85,13 @@ def guetterLP(adresse_contrat_vise):
             contrat_0 = myContractToken.functions.token0().call()
             contrat_1 = myContractToken.functions.token1().call()
             if(contrat_1 == adresse_contrat_vise):
-                if(contrat_0 =='0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c' ):
+                if(contrat_0 == adressBNB):
                     if(achat == False):
                         acheterSomme(adresse_wallet, adresse_contrat_vise, somme_a_investir)
                         achat = True
                         print("Achat realise")
             if(contrat_0 == adresse_contrat_vise):
-                if(contrat_1 =='0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c' ):
+                if(contrat_1 == adressBNB):
                     if(achat == False):
                         acheterSomme(adresse_wallet, adresse_contrat_vise, somme_a_investir)
                         achat = True
